@@ -1,0 +1,23 @@
+{
+    "name": "leon-javascript-learn",
+    "version": "1.0.0",
+    "description": "for learning",
+    "main": "index.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/liwangpu/leon-javascript-learn.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/liwangpu/leon-javascript-learn/issues"
+    },
+    "homepage": "https://github.com/liwangpu/leon-javascript-learn#readme",
+    "devDependencies": {
+        "live-server": "^1.2.1"
+    }
+}
