@@ -4,5 +4,5 @@ window.onload = function () {
 }
 
 function funTest() {
-    alert(1);
+    console.log('test work!');
 }
