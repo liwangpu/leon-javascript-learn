@@ -1,7 +1,6 @@
 require.config({ paths: { vs: './assets/vs' } });
 
 require(['vs/libs/jquery', 'vs/libs/lodash', 'vs/editor/editor.main'], function ($, _) {
-    // console.log(111,_.cloneDeep({name:'df'}));
     var editorContainer = $('#editor-container')[0];
     var editor = monaco.editor.create(editorContainer, {
         value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
@@ -20,6 +19,18 @@ require(['vs/libs/jquery', 'vs/libs/lodash', 'vs/editor/editor.main'], function 
         }
     };
 
+    editor.onDidChangeModelDecorations(() => {
+        const model = editor.getModel();
+        if (model === null || model.getModeId() !== "javascript")
+            return;
+
+        const owner = model.getModeId();
+        const markers = monaco.editor.getModelMarkers({ owner });
+
+        // console.log(1, markers);
+        // do something with the markers
+    });
+
     monaco.languages.registerCompletionItemProvider('javascript', {
         triggerCharacters: ["."],
         autoIndent: true,
@@ -30,7 +41,7 @@ require(['vs/libs/jquery', 'vs/libs/lodash', 'vs/editor/editor.main'], function 
             }
 
             let topVariable = content.slice(0, content.indexOf('.'));
-            if (topVariable !== '$mirror') { return { suggestions: [] }; }
+            if (topVariable !== '$mirror') { return ; }
 
             var variable = content.slice(0, content.length - 1);
             var value = _.get(mirrorScope, variable);
@@ -41,15 +52,6 @@ require(['vs/libs/jquery', 'vs/libs/lodash', 'vs/editor/editor.main'], function 
                 startColumn: word.startColumn,
                 endColumn: word.endColumn
             };
-
-            // const thisIndex = content.lastIndexOf('this');
-            // const httpIndex = content.lastIndexOf('httpClient');
-
-            // const index = Math.max(-1, thisIndex, httpIndex);
-            // console.log(index, thisIndex, httpIndex)
-            // console.log(content, content[content.length - 1]);
-            // console.log(word);
-            // console.log(range);
 
             let suggestions = Object.keys(value).map(k => ({ label: k, kind: 3, insertText: k, range }));
             // let suggestions = [
