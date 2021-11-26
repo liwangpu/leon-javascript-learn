@@ -4,5 +4,11 @@ window.onload = function () {
 }
 
 function funTest() {
-    console.log('test work!');
+    // console.log('test work!');
+    System.import('tool').then(m=>{
+        console.log(1,m);
+        // m.hello('Leon');
+    });
+
+    // System.import('/assets/js/tool.js')
 }
